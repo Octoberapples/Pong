@@ -27,19 +27,23 @@ public class MyPongModel implements PongModel {
    /* private Input key; 
     private Input dir; */
     
-    private final String leftPlayer;
-    private final String rightPlayer;
+    private final String left;
+    private final String right;
     private Point ball;
     private final Dimension field;
-    private final int barPos; 
-    
+    private int leftBarPos;
+    private int rightBarPos;
+    private BarKey leftBarKey;
+    private BarKey rightBarKey;
     
     public MyPongModel(String leftPlayer, String rightPlayer) {
-        this.leftPlayer = leftPlayer;
-        this.rightPlayer = rightPlayer;   
+        this.left = leftPlayer;
+        this.right = rightPlayer;   
         this.field = new Dimension(1200,800);  
-        this.barPos = (int) (this.field.getHeight()/2);
+        this.leftBarPos = (int) (this.field.getHeight()/2);
+        this.rightBarPos = (int) (this.field.getHeight()/2);
         this.ball = new Point((int) (this.field.getWidth()/2),(int) (this.field.getHeight()/2));
+        
         
     }
     
@@ -54,18 +58,27 @@ public class MyPongModel implements PongModel {
      */
     @Override
     public void compute(Set<Input> input, long delta_t) {
-//input tar barkey och direction, delta_t är ba en tidsenhet typ, irrelevant iaf
-      /*  
-        input = new HashSet<>();
-        input.add(key);
-        input.add(dir); 
-        //input.add(ball); //men bläh behöver positionerna på bollen etc 
-        
-        for (Input eachinput : input) {
-           
+    //input tar barkey och direction, delta_t är ba en tidsenhet typ, irrelevant iaf
+        for(Input i : input) {
+            switch(i.key){
+                case LEFT: 
+                    switch(i.dir) {
+                        case UP: this.leftBarPos = (this.getBarPos(BarKey.LEFT) + 1);
+                            
+                        case DOWN:this.leftBarPos = (this.getBarPos(BarKey.LEFT) - 1);
+                           
+                    }
+                case RIGHT: 
+                    switch(i.dir) {
+                        case UP: this.rightBarPos = (this.getBarPos(BarKey.RIGHT) + 1) ;
+                            
+                        case DOWN:this.rightBarPos = (this.getBarPos(BarKey.RIGHT) -1);
+                    }
+            }
+
         }
-        
-        */
+                    
+ 
         
     }
    /**
@@ -76,7 +89,11 @@ public class MyPongModel implements PongModel {
      */  
     @Override
     public int getBarPos(BarKey k) {
-        return this.barPos;
+        switch(k) {
+            case LEFT: return leftBarPos;
+            case RIGHT: return rightBarPos;
+            default: return 0;
+        }
     }
 
     @Override
@@ -97,7 +114,7 @@ public class MyPongModel implements PongModel {
      */
     @Override
     public String getMessage() {
-        return "Toby is fucker";    
+        return "AXEL IS LARGE BECIPS";    
     }
    /**
      * getter for the scores.
