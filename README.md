@@ -15,3 +15,5 @@ We have also completed the following goals with use of independetly written code
 
 
 ##Possible expansions
+You can change the program so that the users can choose how many goals you have to score before you win.
+YOU CAN ADD COLOURS.
